@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+.slick-track {
+  margin: 0px !important;
+}
