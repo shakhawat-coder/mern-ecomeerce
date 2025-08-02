@@ -71,7 +71,7 @@ const Banner = () => {
   // const [openDropdown, setOpenDropdown] = useState(null);
   const allCategory = useGetAllCategoryQuery();
 
-  console.log(allCategory.data?.data[1]?.subcategories);
+  // console.log(allCategory.data?.data[1]?.subcategories);
 
   const handledropdown = (id) => {
     setDropdown(dropdown === id ? null : id);

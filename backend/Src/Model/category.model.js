@@ -17,9 +17,25 @@ const categorySchema = new Schema({
       ref: "subcategory",
     },
   ],
+  product: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "product",
+    },
+  ],
   isActive: {
     type: Boolean,
     default: false,
   },
 });
+// Virtual populate for products referencing this category
+categorySchema.virtual("products", {
+  ref: "product", // model name
+  localField: "_id", // category _id
+  foreignField: "category", // field in product model
+});
+
+// Enable virtuals in JSON and Object output
+categorySchema.set("toObject", { virtuals: true });
+categorySchema.set("toJSON", { virtuals: true });
 module.exports = mongoose.model("category", categorySchema);

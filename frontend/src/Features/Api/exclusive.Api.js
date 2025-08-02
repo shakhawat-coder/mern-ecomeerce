@@ -24,6 +24,12 @@ export const exclusiveApi = createApi({
     GetAllProduct: builder.query({
       query: () => `/product`,
     }),
+    GetSingleCategory: builder.query({
+      query: (id) => `/category/${id}`,
+    }),
+    getSingleSubCategory: builder.query({
+      query: (id) => `/subcategory/${id}`,
+    }),
     GetAllNewArrival: builder.query({
       query: () => `/new-arrival`,
     }),
@@ -33,6 +39,8 @@ export const exclusiveApi = createApi({
 export const {
   useGetAllBannerQuery,
   useGetAllCategoryQuery,
+  useGetSingleCategoryQuery,
+  useGetSingleSubCategoryQuery,
   useGetAllFlashSaleQuery,
   useGetAllBestSaleQuery,
   useGetAllProductQuery,

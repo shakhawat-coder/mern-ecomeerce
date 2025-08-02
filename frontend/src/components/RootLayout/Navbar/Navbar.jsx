@@ -46,7 +46,7 @@ const Navbar = () => {
                 {navItem?.map((nav) => (
                   <li key={nav.id} className="">
                     <NavLink
-                      to={`{nav.pathRoute}`}
+                      to={nav.pathRoute}
                       className={({ isPending, isActive }) =>
                         isPending
                           ? "text-black text-[17px] font-normal font-popins"

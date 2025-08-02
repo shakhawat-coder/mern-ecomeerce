@@ -22,4 +22,5 @@ const subCategorySchema = new Schema({
     ref: "product",
   },
 });
+
 module.exports = mongoose.model("subcategory", subCategorySchema);

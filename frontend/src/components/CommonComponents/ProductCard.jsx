@@ -13,29 +13,31 @@ const ProductCard = ({ itemdata }) => {
       <div className="mt-10 mx-[15px] group">
         <div className="w-full">
           <div className="bg-gray-200  px-3 pt-4 rounded relative  cursor-pointer">
-            <div className="flex items-center justify-between">
+            <div className="absolute top-5 left-3">
               {itemdata.discount && (
                 <span className="px-3 py-2 rounded bg-[#DB4444] text-white text-sm font-semibold">
                   - {itemdata.discount} %
                 </span>
               )}
+            </div>
+            <div className=" absolute top-3 right-3 flex flex-col">
               <span className="w-[35px] h-[35px] flex justify-center items-center rounded-full bg-white_FFFFFF cursor-pointer hover:bg-redDB4444 hover:text-white_FFFFFF  text-xl">
                 <IoHeartOutline />
               </span>
-            </div>
-            <div className="flex justify-between cursor-pointer pb-3">
-              <Link to={`/productdetails/${itemdata.name}`}>
-                <div className="w-[300px h-[152px] flex-1">
-                  <img
-                    src={itemdata ? itemdata.image[0] : image}
-                    alt=""
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </Link>
               <span className="w-[35px] h-[35px] flex justify-center items-center rounded-full bg-white_FFFFFF cursor-pointer hover:bg-redDB4444 hover:text-white_FFFFFF  text-xl mt-2">
                 <MdOutlineRemoveRedEye />
               </span>
+            </div>
+            <div className="cursor-pointer pb-3">
+              <Link to={`/productdetails/${itemdata.name}`}>
+                <div className="w-full h-[152px] flex-1">
+                  <img
+                    src={itemdata ? itemdata.image[0] : image}
+                    alt=""
+                    className="w-full h-full object-fill"
+                  />
+                </div>
+              </Link>
             </div>
             <div
               className="opacity-0 absolute left-0 bottom-0 font-popins font-medium text-lg cursor-pointer  flex justify-center items-center w-full h-12 bg-black text-white group-hover:opacity-100"

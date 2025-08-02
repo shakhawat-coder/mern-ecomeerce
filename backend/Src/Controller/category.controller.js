@@ -80,7 +80,10 @@ const getAllCategories = async (req, res) => {
 const getSingleCategory = async (req, res) => {
   try {
     const { id } = req.params;
-    const singleCategory = await categoryModel.findById(id);
+    const singleCategory = await categoryModel
+      .findById(id)
+      .populate("subcategories")
+      .populate("products");
     if (!singleCategory) {
       return res
         .status(404)

@@ -13,7 +13,7 @@ const myCache = new NodeCache();
 const createProduct = async (req, res) => {
   try {
     const { name, description, price, category, subCategory } = req.body;
-    if (!name || !description || !price || !category || !subCategory) {
+    if (!name || !description || !price || !category) {
       return res
         .status(400)
         .json(new apiError(false, null, "Missing required fields", true));
@@ -72,7 +72,10 @@ const getAllProducts = async (req, res) => {
     const value = myCache.get("allProducts");
 
     if (value === undefined) {
-      const allProducts = await productModel.find({}).limit(10);
+      const allProducts = await productModel
+        .find({})
+        .limit(10)
+        .populate("category");
       myCache.set("allProducts", JSON.stringify(allProducts), 60 * 60);
       return res
         .status(200)

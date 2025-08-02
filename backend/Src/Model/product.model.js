@@ -45,7 +45,7 @@ const productSchema = new Schema(
     subCategory: {
       type: Schema.Types.ObjectId,
       ref: "subcategory",
-      required: true,
+      // required: true,
     },
     image: [
       {
