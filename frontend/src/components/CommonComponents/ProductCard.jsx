@@ -5,9 +5,17 @@ import { Link } from "react-router";
 import image from "../../assets/react.svg";
 import Star from "./Star";
 import useCalculateDiscount from "../../hooks/useCalculateDiscount";
+import { useDispatch, useSelector } from "react-redux";
+import { addtocart } from "../../Features/AllSlice/cartSlice";
 const ProductCard = ({ itemdata }) => {
-  // console.log(itemdata);
-
+  const dispatch = useDispatch();
+  const handleAddtoCart = (item) => {
+    // Logic to add item to cart
+    dispatch(addtocart(item));
+    // console.log("Add to cart:", item);
+  };
+  const cartItem = useSelector((state) => state?.cart?.value);
+  console.log("Cart items:", cartItem);
   return (
     <>
       <div className="mt-10 mx-[15px] group">
@@ -41,7 +49,7 @@ const ProductCard = ({ itemdata }) => {
             </div>
             <div
               className="opacity-0 absolute left-0 bottom-0 font-popins font-medium text-lg cursor-pointer  flex justify-center items-center w-full h-12 bg-black text-white group-hover:opacity-100"
-              // onClick={() => handleAddtoCart(itemData)}
+              onClick={() => handleAddtoCart(itemdata)}
             >
               <h3>Add To Cart</h3>
             </div>

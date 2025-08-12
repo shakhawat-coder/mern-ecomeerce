@@ -10,7 +10,6 @@ const Product = () => {
   const { data, isError, isLoading } = useGetAllCategoryQuery();
   const handleCategory = (id) => {
     console.log(id);
-
     setCategoryId(id);
   };
   return (

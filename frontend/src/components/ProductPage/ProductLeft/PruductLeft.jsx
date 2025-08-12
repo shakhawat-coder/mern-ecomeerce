@@ -31,18 +31,18 @@ const PruductLeft = ({
                   <li className="group-hover:px-5 transition-all text-md text-black font-normal cursor-pointer">
                     {item.name}
                   </li>
-                  {item.subcategories.length > 0 && (
+                  {/* {item.subcategories.length > 0 && (
                     <span
                       className="pr-5 h-5 text-xl text-black"
                       onClick={() => handledropdown(item._id)}
                     >
                       <FaChevronRight />
                     </span>
-                  )}
+                  )} */}
                 </div>
 
                 {/* ✅ Render subcategories directly under the li */}
-                {dropdown === item._id && item.subcategories.length > 0 && (
+                {/* {dropdown === item._id && item.subcategories.length > 0 && (
                   <ul className=" bg-gray-100 transition-all">
                     {item.subcategories.map((subcat) => (
                       <li
@@ -53,7 +53,7 @@ const PruductLeft = ({
                       </li>
                     ))}
                   </ul>
-                )}
+                )} */}
               </div>
             ))
           )}
