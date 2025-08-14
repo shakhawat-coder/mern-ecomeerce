@@ -2,6 +2,7 @@ import React from "react";
 import { Link, NavLink } from "react-router";
 import { CiSearch } from "react-icons/ci";
 import { BsCart } from "react-icons/bs";
+import { useSelector } from "react-redux";
 import { FaRegHeart, FaUser } from "react-icons/fa";
 const Navbar = () => {
   const navItem = [
@@ -29,6 +30,9 @@ const Navbar = () => {
       pathRoute: "/singup",
     },
   ];
+
+  const cartTotalItem = useSelector((state) => state.cart.value.length);
+  console.log("cartTotalItem", cartTotalItem);
 
   const handleAccount = () => {};
   return (
@@ -76,13 +80,19 @@ const Navbar = () => {
                 <span className="text-text_black7D8184 text-2xl cursor-pointer">
                   <FaRegHeart />
                 </span>
-                <Link
-                  to={"/cart"}
-                  className="text-text_black7D8184 text-2xl amount cursor-pointer"
-                  // data-cartTotalItem={cartTotalItem}
-                >
-                  <BsCart />
-                </Link>
+                <div className="relative">
+                  <Link
+                    to={"/cart"}
+                    className=" text-text_black7D8184 text-2xl amount cursor-pointer"
+                    // data-cartTotalItem={cartTotalItem}
+                  >
+                    <BsCart />
+                    <span className="absolute top-[-10px] right-[-15px] w-6 h-6 text-sm rounded-full bg-red-500 text-white flex items-center justify-center p-2">
+                      {cartTotalItem}
+                    </span>
+                  </Link>
+                </div>
+
                 <span
                   className="text-text_whiteFAFAFA text-xl rounded-full bg-redDB4444 p-2 cursor-pointer relative"
                   onClick={handleAccount}
