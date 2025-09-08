@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, NavLink } from "react-router";
 import { CiSearch } from "react-icons/ci";
 import { BsCart } from "react-icons/bs";
@@ -31,10 +31,29 @@ const Navbar = () => {
     },
   ];
 
-  const cartTotalItem = useSelector((state) => state.cart.value.length);
+  const cartTotalItem = useSelector((state) => state.cart.cartTotalItem);
   console.log("cartTotalItem", cartTotalItem);
 
-  const handleAccount = () => {};
+  const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef(null);
+  const handleAccount = () => {
+    setShowDropdown((prev) => !prev);
+  };
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
+    if (showDropdown) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showDropdown]);
   return (
     <>
       <div className="pt-4 pb-4 border-b-2 border-b-gray-400">
@@ -92,13 +111,50 @@ const Navbar = () => {
                     </span>
                   </Link>
                 </div>
+                <div className="relative" ref={dropdownRef}>
+                  <span
+                    className={` text-xl rounded-full w-10 h-10 flex items-center justify-center cursor-pointer relative transition-colors duration-200 ${
+                      showDropdown
+                        ? "bg-red-600 text-white"
+                        : "bg-transparent text-gray-500"
+                    }`}
+                    onClick={handleAccount}
+                  >
+                    <FaUser />
+                  </span>
+                  {showDropdown && (
+                    <div className="absolute right-0 mt-2 w-max   bg-linear-to-r from-gray-500 to-gray-700 rounded shadow-lg z-50 backdrop-opacity-50 ">
+                      <Link
+                        to="/profile"
+                        className="block px-4 py-2 text-white hover:bg-red-400"
+                      >
+                        Manage My Account
+                      </Link>
+                      <Link
+                        to="/orders"
+                        className="block px-4 py-2 text-white hover:bg-red-400"
+                      >
+                        My Orders
+                      </Link>
+                      <Link
+                        to="/cancelled-orders"
+                        className="block px-4 py-2 text-white hover:bg-red-400"
+                      >
+                        Cancelled Orders
+                      </Link>
 
-                <span
-                  className="text-text_whiteFAFAFA text-xl rounded-full bg-redDB4444 p-2 cursor-pointer relative"
-                  onClick={handleAccount}
-                >
-                  <FaUser />
-                </span>
+                      <button
+                        className="block w-full text-left px-4 py-2 text-white hover:bg-red-400 cursor-pointer"
+                        onClick={() => {
+                          setShowDropdown(false);
+                          // Add your logout logic here
+                        }}
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>

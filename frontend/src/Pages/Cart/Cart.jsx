@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Breadcramb from "../../components/CommonComponents/Breadcramb";
 import { useDispatch, useSelector } from "react-redux";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
@@ -9,12 +9,19 @@ import {
   addtocart,
   decreaseCart,
   removeCart,
+  getTotal,
 } from "../../Features/AllSlice/cartSlice";
+import useCalculateDiscount from "../../hooks/useCalculateDiscount";
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const cartItems = useSelector((state) => state.cart.value);
-  // console.log(cartItems);
+  const { value, cartTotalItem, cartTotalAmount } = useSelector(
+    (state) => state?.cart
+  );
+
+  useEffect(() => {
+    dispatch(getTotal());
+  }, [value, dispatch]);
 
   // Increase quantity handler
   const handleIncrease = (item) => {
@@ -59,7 +66,7 @@ const Cart = () => {
             </h1>
           </div>
         </div>
-        {cartItems?.map((item) => (
+        {value?.map((item) => (
           <div key={item.id} className="">
             <div className="flex justify-between items-center shadow-lg rounded mb-10">
               <div className="relative flex-1 py-6 flex items-center gap-x-4 pl-10">
@@ -80,7 +87,8 @@ const Cart = () => {
               </div>
               <div className="flex-1 py-6 flex justify-center">
                 <h1 className="text-[20px] font-popins font-normal text-black">
-                  ${item.price}
+                  $
+                  {useCalculateDiscount(item?.price, item?.discount).toFixed(2)}
                 </h1>
               </div>
               <div className="relative flex-1 items-center  py-6 flex justify-center">
@@ -111,7 +119,10 @@ const Cart = () => {
               </div>
               <div className="flex-1 flex justify-end py-6 pr-10">
                 <h1 className="text-[20px] font-popins font-normal text-text_black000000">
-                  ${(item.price * item.cartQuantity).toFixed(2)}
+                  $
+                  {useCalculateDiscount(item?.price, item?.discount).toFixed(
+                    2
+                  ) * item.cartQuantity}
                 </h1>
               </div>
             </div>
@@ -136,10 +147,66 @@ const Cart = () => {
             </Link>
           </div>
         </div>
+        <div className="flex justify-between mt-20">
+          <div className="">
+            <input
+              className="border px-4 py-2 rounded-sm focus:outline-none focus:border-red-500"
+              type="text"
+              placeholder="Enter coupon code"
+            />
+            <button className="border-1 border-transparent text-white px-4 py-2 ml-2 rounded-sm bg-red-500">
+              Apply Coupon
+            </button>
+          </div>
+          <div className="border border-gray-200 p-5 w-100 rounded-sm">
+            <h1 className="text-[20px] font-popins font-medium text-black mb-4">
+              Cart Totals
+            </h1>
+            <div className="flex justify-between mb-2">
+              <h1 className="text-[20px] font-popins font-normal text-text_black000000">
+                Total Items :
+              </h1>
+              <h1 className="text-[20px] font-popins font-normal text-text_black000000">
+                {cartTotalItem}
+              </h1>
+            </div>
+            <hr className="text-gray-300 py-2" />
+            <div className="flex justify-between mb-2">
+              <h1 className="text-[20px] font-popins font-normal text-text_black000000">
+                Subtotal :
+              </h1>
+              <h1 className="text-[20px] font-popins font-normal text-text_black000000">
+                ${cartTotalAmount.toFixed(2)}
+              </h1>
+            </div>
+            <hr className="text-gray-300 py-2" />
+            <div className="flex justify-between mb-2">
+              <h1 className="text-[20px] font-popins font-normal text-text_black000000">
+                Shipping :
+              </h1>
+              <h1 className="text-[20px] font-popins font-normal text-text_black000000">
+                60.00
+              </h1>
+            </div>
+            <hr className="text-gray-300 py-2" />
+            <div className="flex justify-between mb-2">
+              <h1 className="text-[20px] font-popins font-normal text-text_black000000">
+                Total Amount :
+              </h1>
+              <h1 className="text-[20px] font-popins font-normal text-text_black000000">
+                ${cartTotalAmount.toFixed(2) + 60.0}
+              </h1>
+            </div>
+            <hr className="text-gray-300 py-2" />
+            <button className="border-1 border-transparent text-white px-4 py-2 mt-4 rounded-sm bg-red-500 w-full">
+              Proceed to Checkout
+            </button>
+          </div>
+        </div>
       </div>
     </>
   );
 };
 
 export default Cart;
-// ==============class 54 1hr 12 minutes=======
+// ==============class 95 21 minutes=======

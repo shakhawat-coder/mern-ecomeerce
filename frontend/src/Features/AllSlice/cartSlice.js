@@ -5,6 +5,8 @@ const initialState = {
   value: localStorage.getItem("cartItems")
     ? JSON.parse(localStorage.getItem("cartItems"))
     : [],
+  cartTotalItem: 0,
+  cartTotalAmount: 0,
 };
 
 export const cartSlice = createSlice({
@@ -61,11 +63,30 @@ export const cartSlice = createSlice({
         infoToast(`${action.payload.name} not found in cart`);
       }
     },
+    // ===============total price calculation===============
+    getTotal: (state, action) => {
+      const cartAllItemReducer = state.value.reduce(
+        (cartInfo, cartItem) => {
+          const { price, cartQuantity } = cartItem;
+          const totalPrice = price * cartQuantity;
+          cartInfo.totalAmount += totalPrice;
+          cartInfo.totalItem += cartQuantity;
+          return cartInfo;
+        },
+        {
+          totalAmount: 0,
+          totalItem: 0,
+        }
+      );
+      state.cartTotalItem = cartAllItemReducer.totalItem;
+      state.cartTotalAmount = cartAllItemReducer.totalAmount;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addtocart, removeCart, decreaseCart } = cartSlice.actions;
+export const { addtocart, removeCart, decreaseCart, getTotal } =
+  cartSlice.actions;
 
 export default cartSlice.reducer;
 

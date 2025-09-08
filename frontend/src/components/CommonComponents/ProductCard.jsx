@@ -35,7 +35,7 @@ const ProductCard = ({ itemdata }) => {
               </span>
             </div>
             <div className="cursor-pointer pb-3">
-              <Link to={`/productdetails/${itemdata.name}`}>
+              <Link to={`/product/${itemdata.name}`}>
                 <div className="w-full h-[152px] flex-1">
                   <img
                     src={itemdata ? itemdata.image[0] : image}
@@ -53,7 +53,7 @@ const ProductCard = ({ itemdata }) => {
             </div>
           </div>
           <div className="flex flex-col items-start gap-y-2 mt-4">
-            <Link to={`/productdetails/${itemdata._id}`}>
+            <Link to={`/product/${itemdata._id}`}>
               <h2 className="text-lg font-popins font-medium text-black cursor-pointer w-full truncate">
                 {itemdata ? itemdata.name : "Product Name"}
               </h2>

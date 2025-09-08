@@ -9,5 +9,3 @@ const _ = express.Router();
 _.route("/category").post(createCategory).get(getAllCategories);
 _.route("/category/:id").get(getSingleCategory).patch(updateCategory);
 module.exports = _;
-
-// class 86  done

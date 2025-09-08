@@ -12,5 +12,3 @@ dbConnect()
   .catch((error) => {
     console.error("Error starting the server:", error);
   });
-
-// console.log(process.env.MONGODB_DATABASE_URL);

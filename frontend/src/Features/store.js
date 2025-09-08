@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { exclusiveApi } from "./Api/exclusive.Api";
-import cartReducer from "./AllSlice/cartSlice";
+import cartReducer, { getTotal } from "./AllSlice/cartSlice";
 
 export const store = configureStore({
   reducer: {
@@ -11,3 +11,5 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(exclusiveApi.middleware),
 });
+
+store.dispatch(getTotal());

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   useGetAllProductQuery,
   useGetSingleCategoryQuery,
@@ -6,13 +6,25 @@ import {
 import ProductCard from "../../CommonComponents/ProductCard";
 
 const ProductRight = ({ categoryWiseData }) => {
-  const [showCount, setShowCount] = React.useState(8);
+  const [page, setPage] = React.useState(1);
+  const [showCount, setShowCount] = useState(8);
+
   const { data, isError, isLoading } = useGetAllProductQuery();
-  console.log(data);
+  // console.log(data);
   const categoryData = useGetSingleCategoryQuery(categoryWiseData);
   console.log(categoryData?.data?.data);
 
+  let totalPage = Math.ceil(data?.data?.length / showCount);
+  // console.log(totalPage);
+
   // const {data,isError,isLoading} = useGetSingleCategoryQuery(categoryWiseData);
+  //   pagination funtionality
+  const handlePerItem = (index) => {
+    if (index > 0 && index <= Math.ceil(totalPage)) {
+      setPage(index);
+    }
+  };
+
   const handleOption = (e) => {
     setShowCount(Number(e.target.value));
     console.log(e.target.value);
@@ -53,6 +65,44 @@ const ProductRight = ({ categoryWiseData }) => {
         {isError && <p>Error loading products.</p>}
         {isLoading && <p>Loading...</p>}
       </div>
+      <nav aria-label="Page navigation example">
+        <ul class="flex justify-center -space-x-px text-base h-10 pt-10">
+          <li>
+            <a
+              href="#"
+              class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 "
+              onClick={() => handlePerItem(page - 1)}
+            >
+              Previous
+            </a>
+          </li>
+          {[...new Array(Math.ceil(totalPage) || 8)].map((_, index) => (
+            <li>
+              <span
+                href="#"
+                className={
+                  index + 1 === page
+                    ? "flex items-center justify-center px-4 h-10 leading-tight text-white_FFFFFF bg-redDB4444 border border-redDB4444 hover:bg-gray-100 hover:text-gray-700  cursor-pointer"
+                    : "flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700  cursor-pointer"
+                }
+                onClick={() => handlePerItem(index + 1)}
+              >
+                {index + 1}
+              </span>
+            </li>
+          ))}
+
+          <li>
+            <a
+              href="#"
+              class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700"
+              onClick={() => handlePerItem(page + 1)}
+            >
+              Next
+            </a>
+          </li>
+        </ul>
+      </nav>
     </>
   );
 };
