@@ -36,7 +36,10 @@ const CustomerService = () => {
         <div className="container mx-auto">
           <div className="flex items-center justify-evenly">
             {service?.map((item) => (
-              <div className="flex flex-col items-center justify-center">
+              <div
+                key={item.id}
+                className="flex flex-col items-center justify-center"
+              >
                 <span className="inline-block  p-3 rounded-full bg-[rgba(47,46,48,0.3)] ">
                   {item.icons}
                 </span>

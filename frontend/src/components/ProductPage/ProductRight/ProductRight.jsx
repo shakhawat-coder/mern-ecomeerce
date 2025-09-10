@@ -66,18 +66,18 @@ const ProductRight = ({ categoryWiseData }) => {
         {isLoading && <p>Loading...</p>}
       </div>
       <nav aria-label="Page navigation example">
-        <ul class="flex justify-center -space-x-px text-base h-10 pt-10">
+        <ul className="flex justify-center -space-x-px text-base h-10 pt-10">
           <li>
             <a
               href="#"
-              class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 "
+              className="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 "
               onClick={() => handlePerItem(page - 1)}
             >
               Previous
             </a>
           </li>
           {[...new Array(Math.ceil(totalPage) || 8)].map((_, index) => (
-            <li>
+            <li key={index}>
               <span
                 href="#"
                 className={
@@ -95,7 +95,7 @@ const ProductRight = ({ categoryWiseData }) => {
           <li>
             <a
               href="#"
-              class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700"
+              className="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700"
               onClick={() => handlePerItem(page + 1)}
             >
               Next
