@@ -96,9 +96,11 @@ const Navbar = () => {
                 </span>
               </div>
               <div className="flex items-center gap-x-[20px] relative">
-                <span className="text-text_black7D8184 text-2xl cursor-pointer">
-                  <FaRegHeart />
-                </span>
+                <Link to={"/wishlist"}>
+                  <span className="text-text_black7D8184 text-2xl cursor-pointer">
+                    <FaRegHeart />
+                  </span>
+                </Link>
                 <div className="relative">
                   <Link
                     to={"/cart"}

@@ -67,7 +67,7 @@ const Cart = () => {
           </div>
         </div>
         {value?.map((item) => (
-          <div key={item.id} className="">
+          <div key={item._id} className="">
             <div className="flex justify-between items-center shadow-lg rounded mb-10">
               <div className="relative flex-1 py-6 flex items-center gap-x-4 pl-10">
                 <img

@@ -14,9 +14,8 @@ const ProductGallery = ({ productData }) => {
       <div className="flex gap-10">
         <div className="w-32">
           {productData?.map((image, index) => (
-            <div className="h-32 w-32 border border-gray-300 mb-5">
+            <div key={index} className="h-32 w-32 border border-gray-300 mb-5">
               <img
-                key={index}
                 src={image}
                 alt={`Product ${index + 1}`}
                 className="w-full h-full object-cover cursor-pointer"

@@ -73,10 +73,11 @@ const ProductFeature = ({ productData }) => {
             <div className="flex items-center gap-x-3 ">
               {sizes.map((item) => (
                 <div
+                  key={item.id}
                   className={
                     selectsize === item.size
                       ? "border-2 border-x-gray-300 rounded  text-white cursor-pointer w-[36px] h-[36px] bg-red-500 flex items-center justify-center "
-                      : "border-2 border-x-gray-300 rounded  w-[36px] h-[36px] flex cursor-pointer items-center justify-center "
+                      : "border-2 border-gray-300 rounded  w-[36px] h-[36px] flex cursor-pointer items-center justify-center "
                   }
                   onClick={() => setselectsize(item.size)}
                 >
@@ -141,21 +142,21 @@ const ProductFeature = ({ productData }) => {
 
           {/* condition  */}
           <div className="mt-10">
-            <div className="flex items-center gap-x-3 border border-gray-300 w-[55%] px-14 py-4">
+            <div className="flex items-center gap-x-3 border-b  border-b-gray-300  px-14 py-4">
               <span className="text-4xl">
                 <TbTruckDelivery />
               </span>
               <div>
-                <h4 className="text-[16px]  font-medium font-popins text-text_black000000">
+                <h4 className="text-[16px]  font-medium font-popins text-black">
                   Free Delivery
                 </h4>
-                <p className="text-[12px]  font-medium font-popins text-text_black000000">
-                  {"nei"}
+                <p className="text-[12px]  font-medium font-popins text-black">
+                  {"Enter your postal code for Delivery Availability"}
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center gap-x-3 border border-gray-300 w-[55%] px-14 py-4">
+            <div className="flex items-center gap-x-3 px-14 py-4">
               <span className="text-4xl">
                 <TbTruckDelivery />
               </span>
@@ -163,8 +164,8 @@ const ProductFeature = ({ productData }) => {
                 <h4 className="text-[16px]  font-medium font-popins text-text_black000000">
                   Return Delivery
                 </h4>
-                <p className="text-[12px]  font-medium font-popins text-text_black000000">
-                  {"NEI"}
+                <p className="text-[12px]  font-medium font-popins text-black">
+                  {"Free 30 Days Delivery Returns. Details"}
                 </p>
               </div>
             </div>
