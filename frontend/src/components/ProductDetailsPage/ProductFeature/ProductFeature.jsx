@@ -4,7 +4,7 @@ import useCalculateDiscount from "../../../hooks/useCalculateDiscount";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { TbTruckDelivery } from "react-icons/tb";
 const ProductFeature = ({ productData }) => {
-  console.log(productData);
+  // console.log(productData);
   const sizes = [
     { id: 1, size: "XS" },
     { id: 2, size: "S" },

@@ -9,15 +9,21 @@ const { sendMail } = require("../Helpers/nodemailer.js");
 const { generateToken } = require("../Helpers/JwtToken.js");
 const { compare } = require("bcrypt");
 const Registration = async (req, res) => {
-  console.log(req.body);
-
   try {
-    const { firstName, email, phone, address1, password } = req.body;
+    const { name, email, password } = req.body;
+    console.log(req.body);
 
-    if (!firstName || !email || !phone || !address1 || !password) {
+    if (!name || !email || !password) {
       return res
         .status(400)
         .json(new apiError(false, null, "All fields are required", true));
+    }
+    // =============exixting user check==================
+    const existingUser = await userModel.findOne({ email });
+    if (existingUser) {
+      return res
+        .status(409)
+        .json(new apiError(false, null, "User already exists", true));
     }
     if (!mailChecker(email)) {
       return res
@@ -42,10 +48,8 @@ const Registration = async (req, res) => {
         .json(new apiError(false, null, "Mail not sent", true));
     }
     const saveUser = await new userModel({
-      firstName,
+      name,
       email,
-      phone,
-      address1,
       password: hashedPassword,
       otp: otp,
     }).save();

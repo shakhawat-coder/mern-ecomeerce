@@ -9,6 +9,21 @@ const initialState = {
   cartTotalAmount: 0,
 };
 
+// helper to recalculate totals and store them on state
+const recalcTotals = (state) => {
+  const totals = state.value.reduce(
+    (acc, it) => {
+      const price = it.price * (it.cartQuantity || 1);
+      acc.totalAmount += price;
+      acc.totalItem += it.cartQuantity || 0;
+      return acc;
+    },
+    { totalAmount: 0, totalItem: 0 }
+  );
+  state.cartTotalAmount = totals.totalAmount;
+  state.cartTotalItem = totals.totalItem;
+};
+
 export const cartSlice = createSlice({
   name: "cart",
   initialState,
@@ -28,7 +43,12 @@ export const cartSlice = createSlice({
         localStorage.setItem("cartItems", JSON.stringify(state.value));
         successToast(`${action.payload.name} added to cart`);
       }
-      // state.value = [...state.value, action.payload];
+
+      // recalc totals immediately so selectors/readers see updated totals
+      recalcTotals(state);
+
+
+
     },
     // ===========decrease item quantity in cart===========
     decreaseCart: (state, action) => {
@@ -39,6 +59,7 @@ export const cartSlice = createSlice({
         state.value[findItem].cartQuantity -= 1;
         localStorage.setItem("cartItems", JSON.stringify(state.value));
         infoToast(`${action.payload.name} quantity decreased in cart`);
+        recalcTotals(state);
       } else if (findItem >= 0 && state.value[findItem].cartQuantity === 1) {
         // If quantity is 1, remove the item from the cart
         state.value = state.value.filter(
@@ -46,6 +67,7 @@ export const cartSlice = createSlice({
         );
         localStorage.setItem("cartItems", JSON.stringify(state.value));
         errorToast(`${action.payload.name} removed from cart`);
+        recalcTotals(state);
       }
     },
     // ===========remove item from cart===========
@@ -59,6 +81,7 @@ export const cartSlice = createSlice({
         );
         localStorage.setItem("cartItems", JSON.stringify(state.value));
         errorToast(`${action.payload.name} removed from cart`);
+        recalcTotals(state);
       } else {
         infoToast(`${action.payload.name} not found in cart`);
       }

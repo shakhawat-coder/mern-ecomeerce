@@ -15,8 +15,9 @@ import ProductCard from "../../components/CommonComponents/ProductCard";
 const ProductDetails = () => {
   const { id } = useParams();
   const { data, error, isLoading } = useGetSingleProductQuery(id);
-  const categoryId = data?.data?.category?.id;
-  console.log("categoryId", categoryId);
+  const categoryId = data?.data?.category?._id;
+
+  // console.log("categoryId", categoryId);
 
   const relatedProduct = useGetSingleCategoryQuery(categoryId);
   console.log("categoryData", relatedProduct?.data?.data?.products);

@@ -56,7 +56,7 @@ const Navbar = () => {
   }, [showDropdown]);
   return (
     <>
-      <div className="pt-4 pb-4 border-b-2 border-b-gray-400">
+      <div className="pt-4 pb-4 border-b-2 border-b-gray-400 sticky top-0 z-50 bg-white">
         <div className="container mx-auto">
           <div className="flex items-center justify-between">
             <div>

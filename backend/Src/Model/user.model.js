@@ -3,13 +3,9 @@ const { Schema } = mongoose;
 
 const userSchema = new Schema(
   {
-    firstName: {
+    name: {
       type: String,
-      required: [true, "First name missing"],
-      trim: true,
-    },
-    lastName: {
-      type: String,
+      required: [true, "Name missing"],
       trim: true,
     },
     email: {
@@ -19,14 +15,14 @@ const userSchema = new Schema(
     },
     phone: {
       type: String,
-      required: [true, "Phone number missing"],
+      // required: [true, "Phone number missing"],
       trim: true,
       max: [11, "Max length is 11 digits"],
       min: [11, "Min length is 11 digits"],
     },
     address1: {
       type: String,
-      required: [true, "Address1 missing"],
+      // required: [true, "Address1 missing"],
       trim: true,
     },
     address2: {

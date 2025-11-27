@@ -7,6 +7,7 @@ const banner = require("./api/banner.apiRoutes");
 const flashSale = require("./api/flashSale.apiRoutes");
 const bestselling = require("./api/bestSell.apiRoutes");
 const newArrival = require("./api/newArrival.apiRoutes");
+const contact = require("./api/contact.api");
 const _ = express.Router();
 const baseApi = process.env.BASE_API || "/api/v1";
 
@@ -18,6 +19,7 @@ _.use(baseApi, banner);
 _.use(baseApi, flashSale);
 _.use(baseApi, bestselling);
 _.use(baseApi, newArrival);
+_.use(baseApi, contact)
 // _.use("*", (req, res) => {
 //  return res.status(404).json({
 //     success: false,

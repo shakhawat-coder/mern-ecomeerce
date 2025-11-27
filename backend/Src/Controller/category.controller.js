@@ -1,6 +1,7 @@
 const categoryModel = require("../Model/category.model.js");
 const { apiResponse } = require("../Utils/ApiResponse.js");
 const { apiError } = require("../Utils/ApiError.js");
+const mongoose = require("mongoose");
 
 const createCategory = async (req, res) => {
   try {
@@ -80,6 +81,12 @@ const getAllCategories = async (req, res) => {
 const getSingleCategory = async (req, res) => {
   try {
     const { id } = req.params;
+    // 🚨 Guard against invalid or missing IDs
+    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+      return res
+        .status(400)
+        .json(new apiError(false, null, "Invalid category ID", true));
+    }
     const singleCategory = await categoryModel
       .findById(id)
       .populate("subcategories")
